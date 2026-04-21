@@ -1,0 +1,788 @@
+以下是三个批次的完整提示词，每个都可以直接复制到新的对话窗口中执行。
+
+---
+
+## 第一批：基础架构与剧情数据（可同时开启5个窗口）
+
+---
+
+### 窗口1：引擎核心重构（Engine Developer）
+
+```
+你是一个赛博朋克2077 H5游戏引擎开发者。请执行以下任务：
+
+# 任务：引擎核心模块检查与完善
+
+## 上下文
+- 项目：赛博朋克2077 H5游戏
+- 开发计划：d:\Works\Software\Trae\Game\2077demo\.trae\documents\Cyberpunk2077_H5游戏开发计划.md
+- 已有文件：
+  - engine.js（游戏引擎核心，约1000行）
+  - styles.css（全局样式）
+  - index.html（游戏主入口）
+
+## 项目架构
+```
+project/
+├── index.html              # UI骨架 + 引擎入口
+├── styles.css              # 赛博朋克风格样式
+├── engine.js               # 游戏引擎（StateManager/CheckSystem/StoryEngine/UIManager/DebugConsole）
+├── npc_database.js         # NPC角色库
+└── story/                  # 剧情JSON数据
+    ├── ch01_intro.json
+    ├── ch02_middle.json
+    └── ch03_climax.json
+```
+
+## 任务
+请读取 engine.js、styles.css、index.html 三个文件，检查以下5个模块是否完整实现：
+
+1. **StateManager** - 状态管理
+   - 玩家状态（HP/RAM/属性/物品/剧情标记/盟友线）
+   - 存档/读档（localStorage）
+   - 数值调整方法
+   - 死亡检测
+
+2. **CheckSystem** - D20检定系统
+   - D20掷骰
+   - 属性调整值计算：floor((attr-10)/2)
+   - 成功/失败判定
+   - 强制成功/失败（调试用）
+
+3. **StoryEngine** - 剧情引擎
+   - JSON剧情加载（fetch）
+   - 节点类型处理（dialogue/choice/check/ending）
+   - 打字机效果
+   - 故事日志渲染
+
+4. **UIManager** - UI管理
+   - DOM元素绑定
+   - 面板数值更新
+   - 骰子动画
+   - 选择按钮生成
+   - 物品栏更新
+   - 结局界面
+
+5. **DebugConsole** - 调试控制台
+   - UI创建
+   - 数值调整按钮
+   - 剧情跳转
+   - 快捷命令（set/add/goto/list/show/force/reset）
+   - 快捷键Ctrl+Shift+D
+
+## 要求
+- 不删除任何现有功能
+- 修复发现的Bug（语法错误、引用错误、逻辑错误）
+- 确保模块间API一致
+- 代码注释使用中文
+- 不使用emoji
+
+## 完成标准
+- 所有5个模块完整且无语法错误
+- 模块间引用正确
+- 存档系统正常工作
+- 调试控制台功能完整
+- 说明你检查了哪些问题，做了哪些修改
+```
+
+---
+
+### 窗口2：NPC数据库完善（NPC/World Builder）
+
+```
+你是一个赛博朋克2077 H5游戏NPC与世界设定师。请执行以下任务：
+
+# 任务：NPC角色数据库检查与完善
+
+## 上下文
+- 项目：赛博朋克2077 H5游戏
+- 开发计划：d:\Works\Software\Trae\Game\2077demo\.trae\documents\Cyberpunk2077_H5游戏开发计划.md
+- 已有文件：npc_database.js（约400行，已有6个角色基础数据）
+
+## 任务
+请读取 npc_database.js 文件，检查并完善以下内容：
+
+### 1. 核心角色档案（6个必须完整）
+| ID | 名称 | 角色 |
+|----|------|------|
+| v | V | 主角/雇佣兵 |
+| jackson_welles | 杰克·威尔斯 | 搭档/兄弟 |
+| t_bug | T-Bug | 黑客/远程支援 |
+| judy_alvarez | 朱迪·阿尔瓦雷兹 | 超梦编辑师 |
+| panam_palmer | 帕南·帕尔默 | 游牧民 |
+| dexter_deshawn | 德克斯特·德肖恩 | 中间人 |
+
+每个角色必须包含：
+- id, name, role
+- personality: { traits[], tone, quirks[] }
+- background
+- relationships: { 角色id: 关系描述 }
+- slang[] (常用俚语)
+- api_config: { system_prompt, temperature, max_tokens }
+
+### 2. 俚语词库（4大分类）
+- combat: chrome, gonk, zeroed, flatline, bricked
+- tech: ICE, daemon, netrun, sub-net, ping
+- social: choom, amigo, vale, eddies, gig, fixer
+- general: preem, nova, drek, delta, wake up
+
+每个俚语条目格式：{ term, meaning, example }
+
+### 3. 世界书
+- factions: 至少4个势力（荒坂公司、瓦伦蒂诺帮、阿德卡多、虎爪帮）
+- locations: 至少4个地点（荒坂塔、来生酒吧、市中心、恶地）
+- concepts: 至少4个概念（Relic芯片、超梦、赛博精神病、义体医生）
+
+### 4. API预留接口
+- generateDialogue(characterId, context, playerInput) - 生成动态对话
+- simulateTone(characterId, baseText) - 模拟角色语气
+- getPresetDialogue(characterId) - 获取预设对话
+
+## 要求
+- 不修改engine.js中的调用逻辑
+- 角色ID必须与story JSON中speaker字段一致
+- 俚语分类清晰
+- 保持NPCDatabase.init()初始化方式
+- 不使用emoji
+
+## 完成标准
+- 6个角色档案完整
+- 俚语词库4大分类齐全
+- 世界书至少3类各4个条目
+- API预留接口可正常调用
+- 说明你检查了哪些内容，做了哪些修改
+```
+
+---
+
+### 窗口3：第一章剧情验证（Story Designer）
+
+```
+你是一个赛博朋克2077 H5游戏剧情设计师。请执行以下任务：
+
+# 任务：第一章剧情数据检查与优化
+
+## 上下文
+- 项目：赛博朋克2077 H5游戏
+- 开发计划：d:\Works\Software\Trae\Game\2077demo\.trae\documents\Cyberpunk2077_H5游戏开发计划.md
+- 已有文件：story/ch01_intro.json
+
+## 剧情JSON格式规范
+
+### 文件结构
+```json
+{
+  "chapter_id": "ch01",
+  "chapter_name": "章节名称",
+  "nodes": [节点数组]
+}
+```
+
+### 节点类型
+- dialogue: 对话/旁白（speaker, text, speed, delay, next_node）
+- choice: 分支选择（speaker, text, choices[{text, next_node, effect_id}]）
+- check: 检定节点（speaker, text, check:{name, attribute, dc, on_success, on_failure, success_next, failure_next}）
+- ending: 结局（speaker, text, next_ending）
+
+### 说话者ID
+narrator, system, player, t_bug, jackson_welles, judy_alvarez, panam_palmer, dexter_deshawn
+
+### effect_id必须匹配
+accepted_dexter, rejected_dexter, ally_judy, ally_panam, chose_escape, chose_solo, add_shard, add_keycard, add_decrypt_tool
+
+### 节点ID命名
+- 剧情: ch{章号}_{序号}
+- 选择: ch{章号}_choice_{序号}
+- 检定: ch{章号}_check_{名称}
+
+## 任务
+请读取 story/ch01_intro.json 文件，检查并优化：
+
+1. 所有节点ID唯一且不重复
+2. 所有next_node/success_next/failure_next引用存在
+3. 所有check节点格式正确
+4. 所有choice节点格式正确
+5. speaker ID与npc_database.js一致
+6. effect_id与engine.js中定义一致
+7. 剧情节奏合理（开头2-3个对话建立场景，3-5个选择/检定）
+8. DC难度合理（8-20范围）
+
+## 要求
+- 不修改engine.js
+- 失败不卡死，继续推进
+- 不使用emoji
+- 遵循现有命名规则
+
+## 完成标准
+- 所有节点引用完整无断链
+- 格式100%符合引擎要求
+- 剧情流畅
+- 包含至少3个检定节点
+- 说明你检查了哪些问题，做了哪些修改
+```
+
+---
+
+### 窗口4：第二章剧情验证（Story Designer）
+
+```
+你是一个赛博朋克2077 H5游戏剧情设计师。请执行以下任务：
+
+# 任务：第二章剧情数据检查与优化
+
+## 上下文
+- 项目：赛博朋克2077 H5游戏
+- 开发计划：d:\Works\Software\Trae\Game\2077demo\.trae\documents\Cyberpunk2077_H5游戏开发计划.md
+- 已有文件：story/ch02_middle.json
+
+## 剧情JSON格式规范
+
+### 节点类型
+- dialogue: {node_id, type:"dialogue", speaker, text, speed?, delay?, next_node?}
+- choice: {node_id, type:"choice", speaker, text, choices:[{text, next_node, effect_id?}]}
+- check: {node_id, type:"check", speaker, text, check:{name, attribute, dc, on_success, on_failure, success_next, failure_next}}
+
+### 说话者ID
+narrator, system, player, t_bug, jackson_welles, judy_alvarez, panam_palmer, dexter_deshawn
+
+### 本章关键effect_id
+- accepted_dexter / rejected_dexter（德克斯特任务选择）
+- ally_judy / ally_panam（盟友线选择）
+- chose_escape / chose_solo（最终路线选择）
+
+### 节点ID命名
+- 剧情: ch02_{序号}
+- 选择: ch02_choice_{序号}
+- 检定: ch02_check_{名称}
+
+## 任务
+请读取 story/ch02_middle.json 文件，检查并优化：
+
+1. 所有节点ID唯一
+2. 所有引用（next_node等）存在
+3. 盟友线分支正确（judy/panam两条线都有完整对话）
+4. 关键抉择点格式正确
+5. effect_id正确设置
+6. 与第一章的剧情衔接自然
+7. 场景：来生酒吧/中间人据点
+8. 包含德克斯特、朱迪、帕南角色对话
+
+## 要求
+- 不修改engine.js
+- 盟友线选择影响最终结局
+- 关键抉择点不超过3个
+- 不使用emoji
+
+## 完成标准
+- 所有节点引用完整
+- 盟友线分支逻辑正确
+- effect_id与引擎一致
+- 至少1个检定节点
+- 说明你检查了哪些问题，做了哪些修改
+```
+
+---
+
+### 窗口5：第三章剧情验证（Story Designer）
+
+```
+你是一个赛博朋克2077 H5游戏剧情设计师。请执行以下任务：
+
+# 任务：第三章剧情数据检查与优化
+
+## 上下文
+- 项目：赛博朋克2077 H5游戏
+- 开发计划：d:\Works\Software\Trae\Game\2077demo\.trae\documents\Cyberpunk2077_H5游戏开发计划.md
+- 已有文件：story/ch03_climax.json
+
+## 剧情JSON格式规范
+
+### 节点类型
+- dialogue: {node_id, type:"dialogue", speaker, text, speed?, delay?, next_node?}
+- choice: {node_id, type:"choice", speaker, text, choices:[{text, next_node, effect_id?}]}
+- check: {node_id, type:"check", speaker, text, check:{name, attribute, dc, on_success, on_failure, success_next, failure_next}}
+- ending: {node_id, type:"ending", speaker, text, next_ending: "good"|"bad"}
+
+### 说话者ID
+narrator, system, player
+
+### 节点ID命名
+- 剧情: ch03_{序号}
+- 选择: ch03_choice_{序号}
+- 检定: ch03_check_{名称}
+- 结局: ch03_good_ending / ch03_bad_ending
+
+## 任务
+请读取 story/ch03_climax.json 文件，检查并优化：
+
+1. 所有节点ID唯一
+2. 所有引用存在
+3. 结局触发逻辑正确（good/bad两个结局节点）
+4. 最终抉择点格式正确（销毁Relic/独自带走）
+5. 连续检定难度递增设计
+6. 与前两章的剧情衔接
+7. 包含4-5个检定节点
+8. DC难度合理递增
+
+## 要求
+- 不修改engine.js
+- 结局触发与allyPath关联
+- 难度递增（后面的检定比前面难）
+- 不使用emoji
+
+## 完成标准
+- 所有节点引用完整
+- 好/坏结局正确触发
+- 最终抉择点清晰
+- 检定难度合理递增
+- 说明你检查了哪些问题，做了哪些修改
+```
+
+---
+
+## 第二批：集成与界面（第一批完成后，可同时开启4个窗口）
+
+---
+
+### 窗口6：章节集成与加载器实现（Engine Developer）
+
+```
+你是一个赛博朋克2077 H5游戏引擎开发者。请执行以下任务：
+
+# 任务：章节集成与加载系统实现
+
+## 上下文
+- 项目：赛博朋克2077 H5游戏
+- 开发计划：d:\Works\Software\Trae\Game\2077demo\.trae\documents\Cyberpunk2077_H5游戏开发计划.md
+- 前提：第一、三、四、五轮已完成（章节JSON已验证）
+- 已有文件：engine.js、story/ch01_intro.json、story/ch02_middle.json、story/ch03_climax.json
+
+## 任务
+请读取 engine.js 和所有story/*.json文件，实现章节集成系统：
+
+### 1. JSON剧情加载器增强
+- StoryEngine.loadStory(chapterFile) 支持加载指定章节
+- 加载失败时回退到默认开场文本
+- 当前已在initGame()中调用，检查是否正确
+
+### 2. 章节切换系统
+- 章节结束后自动加载下一章
+- 保存章节进度到StateManager
+- 章节过渡提示（"第X章完成"）
+
+### 3. 剧情节点解析完善
+- 支持所有节点类型（dialogue/choice/check/ending）
+- 正确的节点间跳转
+- 检查findNode()是否跨章节查找
+
+### 4. 检定系统与剧情联动
+- check节点正确触发CheckSystem.performCheck()
+- 成功/失败分支正确执行
+- 检定后正确跳转
+
+### 5. 结局判定与渲染
+- 根据allyPath和最终选择判定结局
+- 好结局条件：allyPath不为null + 最终检定成功
+- 坏结局条件：allyPath为null 或 最终检定失败
+- 结局界面正确显示
+
+## 要求
+- 不修改story/*.json
+- 保持现有API兼容
+- 错误处理完善
+- 不使用emoji
+
+## 完成标准
+- 三个章节可顺序加载
+- 检定系统与剧情正确联动
+- 结局系统正常工作
+- 无引用断链
+- 说明你做了哪些修改
+```
+
+---
+
+继续输出剩余的提示词：
+
+---
+
+### 窗口7：调试控制台完善（Engine Developer）
+
+```
+你是一个赛博朋克2077 H5游戏引擎开发者。请执行以下任务：
+
+# 任务：调试控制台功能完善
+
+## 上下文
+- 项目：赛博朋克2077 H5游戏
+- 开发计划：d:\Works\Software\Trae\Game\2077demo\.trae\documents\Cyberpunk2077_H5游戏开发计划.md
+- 已有文件：engine.js（已有DebugConsole基础实现）
+
+## 任务
+请读取 engine.js 中的 DebugConsole 模块，检查并完善：
+
+### 1. 数值调整面板
+- HP +/- 按钮
+- RAM +/- 按钮
+- 属性 +/- 按钮（体能/智力/魅力）
+- 实时显示当前数值
+
+### 2. 剧情跳转面板
+- 下拉菜单包含所有章节节点
+- 按章节分组
+- 跳转按钮
+
+### 3. 快捷命令面板
+支持以下命令：
+- set hp/ram/attr/flag <value> - 设置数值/属性/标记
+- add item <id> - 添加物品
+- goto <nodeId> - 跳转节点
+- force success/fail - 强制检定结果
+- show state - 显示当前状态
+- list nodes/items/npcs - 列表显示
+- reset - 重置游戏
+
+### 4. UI功能
+- 悬浮按钮切换显示/隐藏
+- 快捷键Ctrl+Shift+D
+- 赛博朋克风格样式
+- 半透明深色背景
+
+## 要求
+- 不修改游戏核心逻辑
+- 命令输出到故事日志
+- 不使用emoji
+
+## 完成标准
+- 所有快捷命令可用
+- 剧情跳转功能正常
+- UI样式符合赛博朋克风格
+- 说明你检查了哪些问题，做了哪些修改
+```
+
+---
+
+### 窗口8：游戏开始界面（UI/UX Designer）
+
+```
+你是一个赛博朋克2077 H5游戏UI/UX设计师。请执行以下任务：
+
+# 任务：游戏开始界面创建
+
+## 上下文
+- 项目：赛博朋克2077 H5游戏
+- 开发计划：d:\Works\Software\Trae\Game\2077demo\.trae\documents\Cyberpunk2077_H5游戏开发计划.md
+- 已有文件：index.html（直接开始游戏，无开始界面）、styles.css
+
+## 设计风格
+- 色板：黄色#facc15（高亮）、青色#22d3ee（科技）、粉色#ec4899（危险）、深色#030712（背景）
+- 字体：Share Tech Mono（英文）、Microsoft YaHei（中文）
+- 效果：扫描线、霓虹发光、故障动画
+
+## 任务
+请读取 index.html 和 styles.css，创建游戏开始界面：
+
+### 1. 开始界面HTML结构
+在index.html中添加开始界面层，包含：
+- 全屏背景容器
+- 主标题 "CYBERPUNK 2077 // TRPG"
+- 副标题 "夜之城 // NIGHT CITY // 2077"
+- 按钮组：
+  - [开始游戏] - 隐藏开始界面，初始化游戏
+  - [继续游戏] - 如果有存档则加载，否则提示
+  - [操作说明] - 展开说明面板
+
+### 2. 游戏说明面板
+点击后显示：
+- D20检定系统说明
+- 三个属性说明（体能/智力/魅力）
+- 基本操作说明
+- 关闭按钮
+
+### 3. CSS样式
+在styles.css中添加：
+- 开始界面全屏背景
+- 霓虹发光标题动画
+- 按钮悬停效果
+- 说明面板样式
+- 淡入淡出过渡
+
+### 4. JavaScript逻辑
+在engine.js或index.html中添加：
+- 开始界面显示/隐藏逻辑
+- 开始游戏按钮触发initGame()
+- 继续游戏检查localStorage
+- 说明面板展开/收起
+
+## 要求
+- 仅修改index.html和styles.css，如需逻辑可修改engine.js
+- 不修改游戏核心逻辑
+- 保持TailwindCSS风格
+- 响应式设计
+- 不使用emoji
+
+## 完成标准
+- 开始界面美观完整
+- 开始游戏按钮正常工作
+- 视觉风格符合赛博朋克
+- 有游戏说明
+- 说明你做了哪些修改
+```
+
+---
+
+### 窗口9：结局系统优化（UI/UX Designer）
+
+```
+你是一个赛博朋克2077 H5游戏UI/UX设计师。请执行以下任务：
+
+# 任务：结局系统视觉优化
+
+## 上下文
+- 项目：赛博朋克2077 H5游戏
+- 开发计划：d:\Works\Software\Trae\Game\2077demo\.trae\documents\Cyberpunk2077_H5游戏开发计划.md
+- 已有文件：engine.js（已有showEndingScreen基础实现）、styles.css
+
+## 设计风格
+- 好结局：绿色主题 #22c55e，温暖、希望
+- 坏结局：红色主题 #ef4444，冷暗、孤独
+- 效果：渐入动画、标题动画、文字逐行显示
+
+## 任务
+请读取 engine.js 和 styles.css，优化结局系统：
+
+### 1. 好结局界面（THE STAR）
+- 绿色主题色调
+- 标题 "THE STAR"（大字体，发光效果）
+- 结局文字："你与盟友一起离开了夜之城，驶向未知的地平线。自由，第一次真正属于你。"
+- [重新开始] 按钮
+
+### 2. 坏结局界面（FLATLINED）
+- 红色主题色调
+- 标题 "FLATLINED"（大字体，故障效果）
+- 结局文字："你独自消逝在夜之城的霓虹中。在这里，传奇往往不得善终。"
+- [重新开始] 按钮
+
+### 3. 过渡动画
+- 背景渐入（fade in）
+- 标题从下方滑入
+- 文字逐行淡入
+- 延迟显示重新开始按钮
+
+### 4. CSS动画
+在styles.css中添加：
+- fadeIn 动画
+- slideUp 动画
+- glitch 标题效果（坏结局）
+- glow 效果（好结局）
+
+### 5. 重新开始功能
+- 清除localStorage存档
+- 重新加载页面或重置状态
+- 回到开始界面
+
+## 要求
+- 保持现有结局触发逻辑
+- 不修改story JSON
+- 视觉风格差异化明显
+- 不使用emoji
+
+## 完成标准
+- 好/坏结局视觉差异明显
+- 过渡动画流畅
+- 重新开始功能正常
+- 结局文字内容完整
+- 说明你做了哪些修改
+```
+
+---
+
+### 窗口10：开始界面与结局系统集成（Engine Developer）
+
+```
+你是一个赛博朋克2077 H5游戏引擎开发者。请执行以下任务：
+
+# 任务：开始界面与结局系统集成
+
+## 上下文
+- 项目：赛博朋克2077 H5游戏
+- 开发计划：d:\Works\Software\Trae\Game\2077demo\.trae\documents\Cyberpunk2077_H5游戏开发计划.md
+- 前提：窗口8、窗口9已完成
+- 已有文件：engine.js、index.html、styles.css
+
+## 任务
+请读取 engine.js、index.html、styles.css，确保：
+
+### 1. 游戏启动流程
+- 页面加载时显示开始界面
+- 不自动调用initGame()
+- 点击"开始游戏"后才调用initGame()
+- 点击"继续游戏"时检查存档并加载
+
+### 2. 存档检测逻辑
+- 检查localStorage.getItem('cp2077_save')
+- 有存档时"继续游戏"按钮可用
+- 无存档时提示"没有找到存档"
+
+### 3. 结局到开始界面的衔接
+- 结局点击重新开始后
+- 清除存档
+- 回到开始界面（而非直接重新开始游戏）
+
+### 4. initGame()修改
+- 移除自动启动逻辑
+- 添加开始界面隐藏逻辑
+- 确保StateManager.init()正确加载存档
+
+## 要求
+- 不修改story JSON
+- 保持现有游戏逻辑
+- 不使用emoji
+
+## 完成标准
+- 开始界面是游戏入口
+- 继续游戏功能正常
+- 结局后回到开始界面
+- 说明你做了哪些修改
+```
+
+---
+
+## 第三批：测试验证（所有前序完成后，开启1个窗口）
+
+---
+
+### 窗口11：全流程测试与Bug修复（QA Tester）
+
+```
+你是一个赛博朋克2077 H5游戏QA测试员。请执行以下任务：
+
+# 任务：全流程测试与问题报告
+
+## 上下文
+- 项目：赛博朋克2077 H5游戏
+- 开发计划：d:\Works\Software\Trae\Game\2077demo\.trae\documents\Cyberpunk2077_H5游戏开发计划.md
+- 前提：所有前序轮次已完成
+- 已有文件：所有游戏文件
+
+## 任务
+
+### 1. 代码语法检查
+- 检查 engine.js 语法错误
+- 检查 npc_database.js 语法错误
+- 检查 index.html 中的脚本引用
+- 验证所有JSON格式有效性
+
+### 2. 节点引用完整性检查
+- 读取 story/ch01_intro.json
+- 读取 story/ch02_middle.json
+- 读取 story/ch03_climax.json
+- 遍历所有nodes，检查：
+  - next_node引用的节点是否存在
+  - success_next/failure_next引用的节点是否存在
+  - choice.next_node引用的节点是否存在
+- 列出所有断链
+
+### 3. effect_id匹配检查
+- 读取 engine.js 中 UIManager.executeEffect() 方法
+- 遍历所有章节JSON中的effect_id
+- 检查每个effect_id是否在engine.js中定义
+- 列出未定义的effect_id
+
+### 4. DC平衡分析
+- 收集所有检定节点的DC值
+- 根据默认属性值（体能12/智力16/魅力14）计算成功率
+- 属性调整值 = floor((attr-10)/2)
+- 成功率 = (21 - (DC - modifier)) / 20
+- 评估难度是否合理
+
+### 5. 生成测试报告
+创建文件 `.trae/test-reports/round1_test_report.md`，包含：
+
+```markdown
+# 测试报告 - 第一轮
+
+## 代码检查结果
+- engine.js: [通过/失败 + 问题列表]
+- npc_database.js: [通过/失败 + 问题列表]
+- JSON格式: [通过/失败 + 问题列表]
+
+## 节点引用检查
+- ch01: [断链列表，无则写"完整"]
+- ch02: [断链列表，无则写"完整"]
+- ch03: [断链列表，无则写"完整"]
+
+## effect_id匹配检查
+- 已定义: [列表]
+- 未定义: [列表，无则写"全部匹配"]
+
+## DC平衡分析
+| 章节 | 检定名称 | 属性 | DC | 调整值 | 成功率 | 评价 |
+|------|---------|------|----|--------|--------|------|
+
+## 问题汇总
+| 序号 | 问题描述 | 严重程度 | 所在文件 | 修复建议 |
+|------|---------|---------|---------|---------|
+
+严重程度：致命/严重/一般/轻微
+```
+
+## 要求
+- 不直接修改代码文件（仅报告问题）
+- 输出报告到 .trae/test-reports/ 目录
+- 问题描述清晰具体
+- 不使用emoji
+
+## 完成标准
+- 完整测试报告
+- 所有问题列出
+- 修复建议具体
+- 严重程度标注
+```
+
+## 目前问题
+- 游戏开始界面不允许出现"由 Trae 驱动 // 基于 D20 检定系统"字样
+- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 执行顺序总结
+
+```
+第一批（同时开5个窗口）
+├── 窗口1: 引擎核心重构
+├── 窗口2: NPC数据库完善
+├── 窗口3: 第一章剧情验证
+├── 窗口4: 第二章剧情验证
+└── 窗口5: 第三章剧情验证
+
+    ↓ 等待全部完成
+
+第二批（同时开4个窗口）
+├── 窗口6: 章节集成与加载器
+├── 窗口7: 调试控制台完善
+├── 窗口8: 游戏开始界面
+└── 窗口9: 结局系统优化
+
+    ↓ 窗口8、9完成后
+
+窗口10: 开始界面与结局系统集成
+
+    ↓ 全部完成后
+
+第三批（开1个窗口）
+└── 窗口11: 全流程测试与Bug修复
+```
+
+所有提示词已列出完毕。你可以按批次新建任务窗口开始运行。

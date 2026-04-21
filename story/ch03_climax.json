@@ -1,0 +1,182 @@
+{
+  "chapter_id": "ch03",
+  "chapter_name": "最终行动",
+  "nodes": [
+    {
+      "node_id": "ch03_01",
+      "type": "dialogue",
+      "speaker": "system",
+      "text": "第三章：最终行动 开始。",
+      "speed": 30,
+      "next_node": "ch03_02"
+    },
+    {
+      "node_id": "ch03_02",
+      "type": "dialogue",
+      "speaker": "narrator",
+      "text": "距离荒坂塔事件已经过去数天。Relic芯片的副作用开始侵蚀你的神经，你知道留给自己的时间不多了。",
+      "speed": 25,
+      "delay": 500,
+      "next_node": "ch03_03"
+    },
+    {
+      "node_id": "ch03_03",
+      "type": "dialogue",
+      "speaker": "narrator",
+      "text": "你联系了可以信任的人，准备实施最终的撤离计划。无论前方是什么，今晚之后，一切都将改变。",
+      "speed": 25,
+      "delay": 500,
+      "next_node": "ch03_04"
+    },
+    {
+      "node_id": "ch03_04",
+      "type": "dialogue",
+      "speaker": "narrator",
+      "text": "夜幕降临，霓虹灯在雨中晕开。荒坂塔的轮廓映在铅灰色的天际线上。你必须穿过封锁区，前往撤离点。",
+      "speed": 25,
+      "delay": 600,
+      "next_node": "ch03_check_approach"
+    },
+    {
+      "node_id": "ch03_check_approach",
+      "type": "check",
+      "speaker": "system",
+      "text": "封锁区的巡逻比预期更密集。你需要找到一条安全路径穿过警戒线。（体能检定 DC14）",
+      "check": {
+        "name": "穿越封锁线",
+        "attribute": "physique",
+        "dc": 14,
+        "on_success": "你利用废弃的地下管道成功绕过了巡逻队，没有引起任何注意。",
+        "on_failure": "巡逻队发现了你的踪迹，子弹擦着你的肩膀飞过！你被迫加速前进。",
+        "success_next": "ch03_05",
+        "failure_next": "ch03_05"
+      }
+    },
+    {
+      "node_id": "ch03_05",
+      "type": "dialogue",
+      "speaker": "system",
+      "text": "你成功穿过了第一道封锁线。但荒坂的追踪无人机已经升空，你的时间不多了。",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch03_check_evade"
+    },
+    {
+      "node_id": "ch03_check_evade",
+      "type": "check",
+      "speaker": "system",
+      "text": "追踪无人机的红色扫描光束在你周围扫过。你必须迅速做出反应。（智力检定 DC16）",
+      "check": {
+        "name": "躲避追踪无人机",
+        "attribute": "intellect",
+        "dc": 16,
+        "on_success": "你骇入了附近一栋建筑的电力网络，短暂的停电让无人机失去了目标信号。",
+        "on_failure": "无人机锁定了你的位置！你只能强行突围，付出了不小的代价。",
+        "success_next": "ch03_06",
+        "failure_next": "ch03_06"
+      }
+    },
+    {
+      "node_id": "ch03_06",
+      "type": "dialogue",
+      "speaker": "narrator",
+      "text": "你摆脱了追踪，来到了预定的撤离点。但荒坂的快速反应部队已经等在那里了。",
+      "speed": 25,
+      "delay": 500,
+      "next_node": "ch03_check_confrontation"
+    },
+    {
+      "node_id": "ch03_check_confrontation",
+      "type": "check",
+      "speaker": "system",
+      "text": "荒坂快速反应部队出现在前方。你必须突破他们的防线。（智力检定 DC18）",
+      "check": {
+        "name": "突破最后防线",
+        "attribute": "intellect",
+        "dc": 18,
+        "on_success": "你利用环境中的电磁干扰器制造了混乱，成功突破了最后的防线！",
+        "on_failure": "敌人的火力出乎意料的凶猛！你勉强突破，但已经伤痕累累。",
+        "success_next": "ch03_07",
+        "failure_next": "ch03_07"
+      }
+    },
+    {
+      "node_id": "ch03_07",
+      "type": "dialogue",
+      "speaker": "narrator",
+      "text": "你终于抵达了撤离车辆旁。引擎已经启动，但Relic芯片在你口袋中发出微弱的光芒，提醒你一切还没有结束。",
+      "speed": 25,
+      "delay": 600,
+      "next_node": "ch03_check_resist"
+    },
+    {
+      "node_id": "ch03_check_resist",
+      "type": "check",
+      "speaker": "system",
+      "text": "Relic芯片在你脑海中低语，荒坂的意识试图控制你的意志。你必须抵抗它的侵蚀，保持清醒做出最后的抉择。（魅力检定 DC20）",
+      "check": {
+        "name": "抵抗Relic侵蚀",
+        "attribute": "charisma",
+        "dc": 16,
+        "on_success": "你咬紧牙关，将芯片的意识强行压制下去。你的意志依然属于你自己。",
+        "on_failure": "芯片的侵蚀让你视线模糊，荒坂的意识在你的脑海中咆哮！但你没有放弃。",
+        "success_next": "ch03_08",
+        "failure_next": "ch03_08"
+      }
+    },
+    {
+      "node_id": "ch03_08",
+      "type": "dialogue",
+      "speaker": "narrator",
+      "text": "你深吸一口气，强迫自己清醒过来。Relic芯片——荒坂公司最危险的实验品，也是无数人丧命的原因。它承载着不朽的意识，也承载着你最后的抉择。",
+      "speed": 25,
+      "delay": 600,
+      "next_node": "ch03_09"
+    },
+    {
+      "node_id": "ch03_09",
+      "type": "dialogue",
+      "speaker": "player",
+      "text": "这颗芯片改变了一切。是结束这一切，还是继续利用它...现在必须做出决定。",
+      "speed": 20,
+      "delay": 500,
+      "next_node": "ch03_final_choice"
+    },
+    {
+      "node_id": "ch03_final_choice",
+      "type": "choice",
+      "speaker": "system",
+      "text": "Relic芯片在你手中闪烁着冷光。这是最后的抉择：",
+      "choices": [
+        {
+          "text": "销毁Relic芯片，与盟友一起离开夜之城（好结局）",
+          "next_node": "ch03_good_ending",
+          "effect_id": "chose_good_ending"
+        },
+        {
+          "text": "独自带着Relic消失，不连累任何人（坏结局）",
+          "next_node": "ch03_bad_ending",
+          "effect_id": "chose_bad_ending"
+        }
+      ]
+    },
+    {
+      "node_id": "ch03_good_ending",
+      "type": "ending",
+      "speaker": "narrator",
+      "text": "你看着手中的Relic芯片，做出了决定。芯片被销毁，荒坂的阴谋也随之破灭。你与信任的人一起，驶向夜之城之外的地平线。自由，第一次真正属于你。",
+      "speed": 25,
+      "delay": 800,
+      "next_ending": "good"
+    },
+    {
+      "node_id": "ch03_bad_ending",
+      "type": "ending",
+      "speaker": "narrator",
+      "text": "你带着Relic芯片独自消失在夜之城的阴影中。没有告别，没有解释。在霓虹闪烁的街头，V这个名字再也没有人提起。也许，这才是最好的结局。",
+      "speed": 25,
+      "delay": 800,
+      "next_ending": "bad"
+    }
+  ]
+}

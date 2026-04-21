@@ -1,0 +1,344 @@
+{
+  "chapter_id": "ch02",
+  "chapter_name": "中间人与抉择",
+  "nodes": [
+    {
+      "node_id": "ch02_01",
+      "type": "dialogue",
+      "speaker": "system",
+      "text": "神经链路重连中...正在同步上次撤离后的记忆数据...",
+      "speed": 30,
+      "next_node": "ch02_01b"
+    },
+    {
+      "node_id": "ch02_01b",
+      "type": "dialogue",
+      "speaker": "system",
+      "text": "三天前，荒坂塔。你和杰克成功偷到了Relic芯片，在T-Bug的掩护下逃离。但那次行动让你成了夜之城头号通缉目标。",
+      "speed": 25,
+      "delay": 500,
+      "next_node": "ch02_02"
+    },
+    {
+      "node_id": "ch02_02",
+      "type": "dialogue",
+      "speaker": "narrator",
+      "text": "现在，来生酒吧。地下雇佣兵圣地，空气中混杂着威士忌、机油和绝望的味道。墙上挂着那些死去传奇的照片——在来生，死亡不过是职业生涯的终点。",
+      "speed": 25,
+      "delay": 500,
+      "next_node": "ch02_03"
+    },
+    {
+      "node_id": "ch02_03",
+      "type": "dialogue",
+      "speaker": "narrator",
+      "text": "吧台后，传奇中间人罗格擦拭着手中的酒杯。角落的包间里，德克斯特.德肖恩已经等了你二十分钟。",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch02_04"
+    },
+    {
+      "node_id": "ch02_04",
+      "type": "dialogue",
+      "speaker": "dexter_deshawn",
+      "text": "V，坐。Relic芯片的事我已经跟买家谈妥了。荒坂在到处找你，所以现在夜之城没人比你更危险，也没人比你更值钱。",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch02_05"
+    },
+    {
+      "node_id": "ch02_05",
+      "type": "dialogue",
+      "speaker": "dexter_deshawn",
+      "text": "但在交易之前，我需要你帮我处理几个小问题。圣多明哥区有个人手里有些对我不利的数据，帮我拿回来。事成之后，eddies少不了你的。",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch02_choice_01"
+    },
+    {
+      "node_id": "ch02_choice_01",
+      "type": "choice",
+      "speaker": "system",
+      "text": "德克斯特的提议听起来有利可图但也有风险，你准备：",
+      "choices": [
+        {
+          "text": "接受德克斯特的任务（获得大量eddies，但增加危险度）",
+          "next_node": "ch02_06",
+          "effect_id": "accepted_dexter"
+        },
+        {
+          "text": "拒绝并寻找其他出路（更安全，但资源有限）",
+          "next_node": "ch02_10",
+          "effect_id": "rejected_dexter"
+        }
+      ]
+    },
+    {
+      "node_id": "ch02_06",
+      "type": "dialogue",
+      "speaker": "dexter_deshawn",
+      "text": "明智的选择，V。去圣多明哥找一个叫维克多的人，他手里有我的数据。把数据带回来，其他不用管。",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch02_07"
+    },
+    {
+      "node_id": "ch02_07",
+      "type": "dialogue",
+      "speaker": "narrator",
+      "text": "你来到圣多明哥区的废弃工厂。维克多的安全屋在一层夹层里，门口有生物识别锁。你注意到旁边的通风管道可以潜入。",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch02_check_data"
+    },
+    {
+      "node_id": "ch02_check_data",
+      "type": "check",
+      "speaker": "system",
+      "text": "你需要破解维克多的个人终端来获取数据。时间紧迫。",
+      "check": {
+        "name": "破解维克多终端",
+        "attribute": "intellect",
+        "dc": 15,
+        "on_success": "数据下载完成。你发现了德克斯特与荒坂的秘密交易记录——他早就知道Relic芯片会引来荒坂的追杀。",
+        "on_failure": "触发了警报！你只来得及拷贝部分数据就逃跑了。",
+        "success_next": "ch02_08",
+        "failure_next": "ch02_08"
+      }
+    },
+    {
+      "node_id": "ch02_08",
+      "type": "dialogue",
+      "speaker": "narrator",
+      "text": "你安全返回来生酒吧。德克斯特收到数据后满意地点头，往你的账户转了一笔可观的eddies。",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch02_09"
+    },
+    {
+      "node_id": "ch02_09",
+      "type": "dialogue",
+      "speaker": "dexter_deshawn",
+      "text": "干得漂亮，V。Relic的买家很快就会联系我。在那之前，你最好低调点。荒坂的追踪犬已经放出来了。",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch02_check_trail"
+    },
+    {
+      "node_id": "ch02_check_trail",
+      "type": "check",
+      "speaker": "system",
+      "text": "在返回住所的路上，你发现身后有人跟踪。需要想办法甩掉他们。",
+      "check": {
+        "name": "甩掉荒坂追踪",
+        "attribute": "intellect",
+        "dc": 14,
+        "on_success": "你利用地铁隧道和假身份卡成功甩掉了追踪者。荒坂失去了你的踪迹。",
+        "on_failure": "追踪者跟得很紧，你被迫绕了三个街区才勉强脱身。",
+        "success_next": "ch02_11",
+        "failure_next": "ch02_11"
+      }
+    },
+    {
+      "node_id": "ch02_10",
+      "type": "dialogue",
+      "speaker": "narrator",
+      "text": "你拒绝了德克斯特。他微笑点头，但眼神中闪过一丝冰冷。你知道这不会就这么结束。",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch02_10b"
+    },
+    {
+      "node_id": "ch02_10b",
+      "type": "dialogue",
+      "speaker": "narrator",
+      "text": "走出包间，你深吸一口气。夜之城的霓虹灯光在头顶闪烁。你需要盟友——光靠自己活不过这周。",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch02_choice_ally"
+    },
+    {
+      "node_id": "ch02_choice_ally",
+      "type": "choice",
+      "speaker": "system",
+      "text": "你需要一个可以信任的人来帮忙，你决定联系：",
+      "choices": [
+        {
+          "text": "联系朱迪.阿尔瓦雷兹（超梦技术专家，地下网络资源）",
+          "next_node": "ch02_judy_01",
+          "effect_id": "ally_judy"
+        },
+        {
+          "text": "联系帕南.帕尔默（游牧民，武装力量支持）",
+          "next_node": "ch02_panam_01",
+          "effect_id": "ally_panam"
+        }
+      ]
+    },
+    {
+      "node_id": "ch02_judy_01",
+      "type": "dialogue",
+      "speaker": "judy_alvarez",
+      "text": "V？choom，你居然还活着。我在新闻上看到了荒坂塔的通告，整个夜之城都在找你。你现在在哪？",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch02_judy_02"
+    },
+    {
+      "node_id": "ch02_judy_02",
+      "type": "dialogue",
+      "speaker": "judy_alvarez",
+      "text": "听着，我认识几个地下网络的联络人，可以帮你伪造身份离开夜之城。但在那之前，我需要确认荒坂有没有在Relic芯片里植入追踪器。把芯片带过来，我帮你分析。",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch02_check_judy"
+    },
+    {
+      "node_id": "ch02_check_judy",
+      "type": "check",
+      "speaker": "system",
+      "text": "朱迪的超梦工作室。她将Relic芯片接入BD分析系统，需要精密度操作来检测追踪信号。",
+      "check": {
+        "name": "超梦分析Relic芯片",
+        "attribute": "intellect",
+        "dc": 16,
+        "on_success": "分析完成。朱迪确认芯片中没有活跃的追踪信号，但发现了一段加密的意识备份程序——荒坂在芯片里存了某个人的记忆。",
+        "on_failure": "分析中途被加密协议反弹。朱迪判断芯片有安全隐患，但没有找到确切的追踪器。",
+        "success_next": "ch02_judy_03",
+        "failure_next": "ch02_judy_03"
+      }
+    },
+    {
+      "node_id": "ch02_judy_03",
+      "type": "dialogue",
+      "speaker": "judy_alvarez",
+      "text": "V，情况比我想象的复杂。但这芯片绝对不能交给荒坂。我已经安排了撤离路线——走地下管道到城外，我的联络人在恶地边缘等你。",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch02_judy_04"
+    },
+    {
+      "node_id": "ch02_judy_04",
+      "type": "dialogue",
+      "speaker": "judy_alvarez",
+      "text": "但你需要做好心理准备。离开夜之城意味着放弃一切。你确定要走这条路吗？",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch02_final_choice"
+    },
+    {
+      "node_id": "ch02_panam_01",
+      "type": "dialogue",
+      "speaker": "panam_palmer",
+      "text": "V！我就知道你还活着。阿德卡多的侦察机拍到了荒坂在全城搜捕你。你在哪里？",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch02_panam_02"
+    },
+    {
+      "node_id": "ch02_panam_02",
+      "type": "dialogue",
+      "speaker": "panam_palmer",
+      "text": "听着，如果你需要离开夜之城，阿德卡多的车队可以带你走。但荒坂的封锁线不是吃素的，我需要时间准备。给我一天。",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch02_check_panam"
+    },
+    {
+      "node_id": "ch02_check_panam",
+      "type": "check",
+      "speaker": "system",
+      "text": "帕南需要一辆足够突破封锁线的车。你帮她改装一辆军用级SUV，需要机械知识。",
+      "check": {
+        "name": "改装突破用车",
+        "attribute": "intellect",
+        "dc": 15,
+        "on_success": "改装完成。你给SUV加装了电磁脉冲器和装甲板，足以冲破荒坂的轻型路障。帕南对此很满意。",
+        "on_failure": "改装出了些问题，但帕南说阿德卡多的车队会弥补车辆性能的不足。",
+        "success_next": "ch02_panam_03",
+        "failure_next": "ch02_panam_03"
+      }
+    },
+    {
+      "node_id": "ch02_panam_03",
+      "type": "dialogue",
+      "speaker": "panam_palmer",
+      "text": "V，路线已经规划好了。我们会在凌晨两点从城西出口突破，阿德卡多的火力足够牵制荒坂的巡逻队。",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch02_panam_04"
+    },
+    {
+      "node_id": "ch02_panam_04",
+      "type": "dialogue",
+      "speaker": "panam_palmer",
+      "text": "但我需要你知道——这条路一旦选了就没有回头路。你准备好离开夜之城了吗？",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch02_final_choice"
+    },
+    {
+      "node_id": "ch02_11",
+      "type": "dialogue",
+      "speaker": "narrator",
+      "text": "你暂时安全了。但荒坂不会停止追捕。你需要做出下一步的决定。",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch02_choice_ally"
+    },
+    {
+      "node_id": "ch02_final_choice",
+      "type": "choice",
+      "speaker": "system",
+      "text": "荒坂的追兵越来越近，你必须做出最终决定：",
+      "choices": [
+        {
+          "text": "跟随盟友逃离夜之城（走向自由之路）",
+          "next_node": "ch02_ally_path",
+          "effect_id": "chose_escape"
+        },
+        {
+          "text": "独自留在夜之城面对荒坂（走向孤狼之路）",
+          "next_node": "ch02_solo_path",
+          "effect_id": "chose_solo"
+        }
+      ]
+    },
+    {
+      "node_id": "ch02_ally_path",
+      "type": "dialogue",
+      "speaker": "narrator",
+      "text": "你选择了信任。无论是朱迪的地下网络还是帕南的游牧车队，他们都愿意赌一把帮你逃离这座吃人的城市。",
+      "speed": 25,
+      "delay": 500,
+      "next_node": "ch02_12"
+    },
+    {
+      "node_id": "ch02_12",
+      "type": "dialogue",
+      "speaker": "system",
+      "text": "夜之城的霓虹在身后渐远。前方是未知的恶地和自由。",
+      "speed": 25,
+      "delay": 500,
+      "next_node": "ch02_end"
+    },
+    {
+      "node_id": "ch02_solo_path",
+      "type": "dialogue",
+      "speaker": "narrator",
+      "text": "你决定独自面对。夜之城从不善待孤狼，但这就是你的选择。霓虹灯下，你的影子被拉得很长。",
+      "speed": 25,
+      "delay": 500,
+      "next_node": "ch02_end"
+    },
+    {
+      "node_id": "ch02_end",
+      "type": "ending",
+      "speaker": "system",
+      "text": "第二章完成。准备进入最终行动...",
+      "speed": 30,
+      "delay": 1000,
+      "next_chapter": "ch03_climax.json"
+    }
+  ]
+}

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk 2077 - TRPG</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-950 text-gray-100 min-h-screen p-4 scanline">
+    <!-- Start Screen -->
+    <div id="start-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gray-950">
+        <div class="scanline absolute inset-0 pointer-events-none"></div>
+        
+        <div class="relative z-10 text-center max-w-3xl px-6">
+            <h1 class="text-6xl md:text-8xl font-bold text-yellow-400 tracking-wider mb-4 start-title glitch-title">
+                CYBERPUNK 2077 // TRPG
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-cyan-400 mb-12 tracking-widest chinese-text subtitle-fade">
+                夜之城 // NIGHT CITY // 2077
+            </p>
+            
+            <div class="flex flex-col gap-4 items-center mb-12 button-group">
+                <button id="start-game-btn" class="glow-yellow bg-yellow-400 text-gray-900 px-12 py-4 font-bold text-xl hover:bg-yellow-300 transition glitch start-btn">
+                    [ 开 始 游 戏 ]
+                </button>
+                
+                <button id="continue-game-btn" class="glow-cyan bg-cyan-500 text-gray-900 px-12 py-4 font-bold text-xl hover:bg-cyan-400 transition glitch start-btn">
+                    [ 继 续 游 戏 ]
+                </button>
+                
+                <button id="show-instructions-btn" class="glow-pink bg-pink-500 text-white px-12 py-4 font-bold text-xl hover:bg-pink-400 transition glitch start-btn">
+                    [ 操 作 说 明 ]
+                </button>
+            </div>
+            
+            <p class="text-sm text-gray-500 chinese-text">A Night City Story</p>
+        </div>
+    </div>
+    
+    <!-- Instructions Panel -->
+    <div id="instructions-panel" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 hidden">
+        <div class="bg-gray-900 border-2 border-cyan-500 p-8 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto instruction-panel">
+            <h2 class="text-3xl font-bold text-yellow-400 mb-6 tracking-wider">操作说明</h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-cyan-400 mb-3 chinese-text">D20 检定系统</h3>
+                <p class="text-gray-300 mb-2 chinese-text">游戏使用 D20 (20面骰) 检定系统来决定行动成败。</p>
+                <p class="text-gray-300 chinese-text">掷骰结果 + 属性调整值 >= 难度等级(DC) 即为成功。</p>
+            </div>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-cyan-400 mb-3 chinese-text">三大属性</h3>
+                <div class="space-y-2 chinese-text">
+                    <p class="text-gray-300"><span class="text-yellow-400 font-bold">体能 (Physique)</span> - 影响力量、耐力、近战战斗相关的检定</p>
+                    <p class="text-gray-300"><span class="text-cyan-400 font-bold">智力 (Intellect)</span> - 影响黑客技术、破解、分析相关的检定</p>
+                    <p class="text-gray-300"><span class="text-pink-500 font-bold">魅力 (Charisma)</span> - 影响交涉、说服、社交相关的检定</p>
+                </div>
+            </div>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-cyan-400 mb-3 chinese-text">基本操作</h3>
+                <ul class="space-y-2 text-gray-300 chinese-text">
+                    <li>- 点击 <span class="text-yellow-400">[开始游戏]</span> 开始新的冒险</li>
+                    <li>- 点击 <span class="text-cyan-400">[继续游戏]</span> 加载上次存档</li>
+                    <li>- 在检定控制台点击 <span class="text-yellow-400">ROLL D20</span> 进行检定</li>
+                    <li>- 在终端输入框输入指令进行交互</li>
+                    <li>- 按 <span class="text-yellow-400">Ctrl + Shift + D</span> 打开调试控制台</li>
+                </ul>
+            </div>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-cyan-400 mb-3 chinese-text">资源管理</h3>
+                <ul class="space-y-2 text-gray-300 chinese-text">
+                    <li>- <span class="text-red-400">HP (生命值)</span> - 归零时角色死亡</li>
+                    <li>- <span class="text-blue-400">RAM (内存)</span> - 归零时神经突触熔断</li>
+                    <li>- 检定失败会损失 HP 和 RAM</li>
+                </ul>
+            </div>
+            
+            <button id="close-instructions-btn" class="glow-cyan w-full bg-cyan-500 text-gray-900 px-6 py-3 font-bold text-lg hover:bg-cyan-400 transition glitch">
+                [ 关 闭 ]
+            </button>
+        </div>
+    </div>
+    
+    <div id="game-main" class="max-w-7xl mx-auto hidden">
+        <header class="mb-4 border-b-2 border-yellow-400 pb-2 flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-bold text-yellow-400 tracking-wider">CYBERPUNK 2077 // TRPG SYSTEM</h1>
+                <p class="text-sm text-cyan-400 mt-1 chinese-text">夜之城 // NIGHT CITY // 2077</p>
+            </div>
+            <button id="open-npc-dialogue-btn" class="glow-cyan bg-cyan-600 text-white px-4 py-2 font-bold text-sm hover:bg-cyan-500 transition glitch">
+                [ NPC AI 对话 ]
+            </button>
+        </header>
+        
+        <div class="grid grid-cols-12 gap-4">
+            <!-- Main Game Area -->
+            <div class="col-span-8 flex flex-col gap-4">
+                <div class="bg-gray-900 border border-cyan-500 p-4 h-96 overflow-y-auto story-log" id="story-log">
+                </div>
+                
+                <div class="bg-gray-900 border border-yellow-400 p-4">
+                    <div id="choices" class="flex gap-2 mb-3">
+                        <button id="action-btn-1" class="glow-yellow bg-yellow-400 text-gray-900 px-4 py-2 font-bold hover:bg-yellow-300 transition glitch">潜入服务器机房</button>
+                        <button id="action-btn-2" class="glow-pink bg-pink-500 text-white px-4 py-2 font-bold hover:bg-pink-400 transition glitch">联系中间人获取更多信息</button>
+                        <button id="action-btn-3" class="glow-cyan bg-cyan-500 text-gray-900 px-4 py-2 font-bold hover:bg-cyan-400 transition glitch">扫描周围网络节点</button>
+                    </div>
+                    
+                    <div class="flex gap-2">
+                        <input 
+                            type="text" 
+                            id="terminal-input"
+                            placeholder="输入指令或与 NPC 交涉..." 
+                            class="flex-1 bg-gray-800 border border-cyan-500 text-cyan-400 px-4 py-2 focus:outline-none terminal-glow font-mono"
+                        >
+                        <button id="send-btn" class="glow-cyan bg-cyan-500 text-gray-900 px-6 py-2 font-bold hover:bg-cyan-400 transition glitch">发送</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="col-span-4 flex flex-col gap-4">
+                <!-- Character Panel -->
+                <div class="bg-gray-900 border border-pink-500 p-4">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-16 h-16 bg-gray-800 border-2 border-yellow-400 flex items-center justify-center">
+                            <span class="text-2xl text-yellow-400">V</span>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-yellow-400">V // 黑客</h2>
+                            <p class="text-sm text-gray-400" id="char-level">等级 7 // 街头声望 42</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-red-400 chinese-text">HP 生命值</span>
+                            <span class="text-red-400" id="hp-display">78/100</span>
+                        </div>
+                        <div class="w-full bg-gray-800 h-3">
+                            <div id="hp-bar" class="hp-bar h-3" style="width: 78%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-blue-400 chinese-text">RAM 内存</span>
+                            <span class="text-blue-400" id="ram-display">45/60</span>
+                        </div>
+                        <div class="w-full bg-gray-800 h-3">
+                            <div id="ram-bar" class="ram-bar h-3" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400 chinese-text">体能 Physique</span>
+                            <span id="stat-physique" class="text-yellow-400 font-bold">12</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400 chinese-text">智力 Intellect</span>
+                            <span id="stat-intellect" class="text-cyan-400 font-bold">16</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400 chinese-text">魅力 Charisma</span>
+                            <span id="stat-charisma" class="text-pink-500 font-bold">14</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Inventory Panel -->
+                <div class="bg-gray-900 border border-cyan-500 p-4">
+                    <h3 class="text-lg font-bold text-cyan-400 mb-3">物品 / 线索</h3>
+                    <div id="inventory">
+                        <div class="bg-gray-800 border border-yellow-400 p-2 text-center hover:border-yellow-300 transition">
+                            <div class="text-yellow-400 text-2xl mb-1 font-bold">SD</div>
+                            <p class="text-xs text-gray-400">分离芯片</p>
+                        </div>
+                        <div class="bg-gray-800 border border-cyan-500 p-2 text-center hover:border-cyan-400 transition">
+                            <div class="text-cyan-400 text-2xl mb-1 font-bold">KY</div>
+                            <p class="text-xs text-gray-400">访问密钥</p>
+                        </div>
+                        <div class="bg-gray-800 border border-gray-700 p-2 text-center">
+                            <div class="text-gray-600 text-2xl mb-1 font-bold">--</div>
+                            <p class="text-xs text-gray-600">空</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Check Console -->
+                <div class="bg-gray-900 border border-yellow-400 p-4">
+                    <h3 class="text-lg font-bold text-yellow-400 mb-3">检定控制台</h3>
+                    <div class="mb-3">
+                        <p class="text-sm text-gray-400 mb-2">当前事件:</p>
+                        <p class="text-cyan-400 font-bold" id="event-name">强行破解门禁 - 智力 DC 15</p>
+                    </div>
+                    <button id="roll-btn" class="glow-yellow w-full bg-yellow-400 text-gray-900 px-6 py-3 font-bold text-lg hover:bg-yellow-300 transition glitch">
+                        ROLL D20
+                    </button>
+                    <div id="dice-result" class="mt-3 text-center hidden">
+                        <p class="text-4xl font-bold text-yellow-400" id="dice-value">--</p>
+                        <p class="text-sm text-gray-400 mt-1" id="dice-total">总计: --</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- NPC AI Dialogue Panel -->
+    <div id="npc-dialogue-panel" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 hidden">
+        <div class="bg-gray-900 border-2 border-cyan-500 w-full max-w-4xl h-[85vh] mx-4 flex flex-col npc-dialogue-panel">
+            <!-- Header -->
+            <div class="flex items-center justify-between p-4 border-b-2 border-cyan-500">
+                <h2 class="text-2xl font-bold text-yellow-400 tracking-wider">NPC AI 对话系统</h2>
+                <button id="close-npc-dialogue" class="text-gray-500 hover:text-red-400 text-2xl font-bold">&times;</button>
+            </div>
+            
+            <!-- NPC Selector -->
+            <div class="p-4 border-b border-cyan-500/50">
+                <div class="flex items-center gap-4 mb-3">
+                    <label class="text-sm text-cyan-400 font-bold">选择剧情节点:</label>
+                    <select id="story-node-selector" class="bg-gray-800 border border-cyan-500 text-cyan-400 px-3 py-1.5 text-sm focus:outline-none focus:border-cyan-400">
+                        <option value="">选择剧情节点...</option>
+                    </select>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <label class="text-sm text-cyan-400 font-bold">当前对话NPC:</label>
+                    <div id="npc-selector-container" class="flex gap-2 flex-1">
+                        <button class="npc-select-btn glow-cyan bg-cyan-600 text-white px-4 py-2 font-bold hover:bg-cyan-500 transition active" data-npc="t_bug">
+                            T-Bug
+                        </button>
+                        <button class="npc-select-btn bg-gray-700 text-gray-400 px-4 py-2 font-bold hover:bg-gray-600 transition" data-npc="jackson_welles">
+                            杰克
+                        </button>
+                    </div>
+                    <button id="api-config-btn" class="glow-yellow bg-yellow-600 text-gray-900 px-4 py-2 font-bold hover:bg-yellow-500 transition">
+                        API 配置
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Chat History -->
+            <div id="chat-history" class="flex-1 overflow-y-auto p-4 space-y-3">
+                <div class="text-center text-gray-500 text-sm mt-8">
+                    <p>选择一个剧情节点和NPC开始对话</p>
+                    <p class="mt-2">系统将使用大模型API生成符合角色设定的回复</p>
+                </div>
+            </div>
+            
+            <!-- Input Area -->
+            <div class="p-4 border-t border-cyan-500/50">
+                <div class="flex gap-2">
+                    <input 
+                        type="text" 
+                        id="npc-chat-input"
+                        placeholder="输入消息与NPC对话..." 
+                        class="flex-1 bg-gray-800 border border-cyan-500 text-cyan-400 px-4 py-2 focus:outline-none terminal-glow font-mono"
+                    >
+                    <button id="send-npc-message" class="glow-cyan bg-cyan-500 text-gray-900 px-6 py-2 font-bold hover:bg-cyan-400 transition glitch">发送</button>
+                </div>
+                <div class="flex items-center justify-between mt-2 text-xs text-gray-500">
+                    <span>按 Enter 发送消息</span>
+                    <span id="api-status" class="text-gray-500">API: 未连接</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- API Config Modal -->
+    <div id="api-config-modal" class="fixed inset-0 z-[60] flex items-center justify-center bg-black bg-opacity-90 hidden">
+        <div class="bg-gray-900 border-2 border-yellow-400 p-6 max-w-lg w-full mx-4 api-config-modal">
+            <h3 class="text-2xl font-bold text-yellow-400 mb-4 tracking-wider">API 配置</h3>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm text-cyan-400 mb-1">API 端点 URL</label>
+                    <input 
+                        type="text" 
+                        id="api-endpoint"
+                        placeholder="https://api.openai.com/v1/chat/completions" 
+                        class="w-full bg-gray-800 border border-cyan-500 text-cyan-400 px-3 py-2 text-sm focus:outline-none focus:border-cyan-400"
+                    >
+                </div>
+                
+                <div>
+                    <label class="block text-sm text-cyan-400 mb-1">API Key</label>
+                    <input 
+                        type="password" 
+                        id="api-key"
+                        placeholder="sk-..." 
+                        class="w-full bg-gray-800 border border-cyan-500 text-cyan-400 px-3 py-2 text-sm focus:outline-none focus:border-cyan-400"
+                    >
+                </div>
+                
+                <div>
+                    <label class="block text-sm text-cyan-400 mb-1">模型名称</label>
+                    <input 
+                        type="text" 
+                        id="api-model"
+                        placeholder="gpt-4" 
+                        class="w-full bg-gray-800 border border-cyan-500 text-cyan-400 px-3 py-2 text-sm focus:outline-none focus:border-cyan-400"
+                    >
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm text-cyan-400 mb-1">Temperature (0-2)</label>
+                        <input 
+                            type="number" 
+                            id="api-temperature"
+                            min="0"
+                            max="2"
+                            step="0.1"
+                            value="0.8"
+                            class="w-full bg-gray-800 border border-cyan-500 text-cyan-400 px-3 py-2 text-sm focus:outline-none focus:border-cyan-400"
+                        >
+                    </div>
+                    <div>
+                        <label class="block text-sm text-cyan-400 mb-1">Max Tokens</label>
+                        <input 
+                            type="number" 
+                            id="api-max-tokens"
+                            min="50"
+                            max="2000"
+                            value="200"
+                            class="w-full bg-gray-800 border border-cyan-500 text-cyan-400 px-3 py-2 text-sm focus:outline-none focus:border-cyan-400"
+                        >
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex gap-3 mt-6">
+                <button id="test-api-btn" class="flex-1 glow-cyan bg-cyan-600 text-white px-4 py-2 font-bold hover:bg-cyan-500 transition">
+                    测试连接
+                </button>
+                <button id="save-api-config" class="flex-1 glow-yellow bg-yellow-600 text-gray-900 px-4 py-2 font-bold hover:bg-yellow-500 transition">
+                    保存配置
+                </button>
+                <button id="close-api-config" class="px-4 py-2 bg-gray-700 text-gray-300 font-bold hover:bg-gray-600 transition">
+                    关闭
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- External Scripts -->
+    <script src="npc_database.js"></script>
+    <script src="engine.js?v=3.0-chapter-fix"></script>
+    <script src="npc_dialogue_system.js"></script>
+</body>
+</html>

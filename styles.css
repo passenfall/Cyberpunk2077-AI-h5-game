@@ -1,0 +1,572 @@
+/* ==========================================
+   Cyberpunk 2077 TRPG - Global Styles
+   ========================================== */
+
+/* Base */
+body {
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', Arial, 'Courier New', monospace;
+}
+
+.terminal-text {
+    font-family: 'Courier New', 'Microsoft YaHei', 'PingFang SC', monospace;
+}
+
+.chinese-text {
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ==========================================
+   Start Screen Styles
+   ========================================== */
+
+/* Title Glitch Animation */
+@keyframes glitch-title {
+    0%, 100% { 
+        text-shadow: 0 0 10px #facc15, 0 0 20px #facc15, 0 0 30px #facc15;
+        transform: translate(0);
+    }
+    20% { 
+        text-shadow: -2px 0 #ec4899, 2px 0 #22d3ee;
+        transform: translate(-2px, 2px);
+    }
+    40% { 
+        text-shadow: -2px 0 #ec4899, 2px 0 #22d3ee;
+        transform: translate(-2px, -2px);
+    }
+    60% { 
+        text-shadow: 2px 0 #ec4899, -2px 0 #22d3ee;
+        transform: translate(2px, 2px);
+    }
+    80% { 
+        text-shadow: 2px 0 #ec4899, -2px 0 #22d3ee;
+        transform: translate(2px, -2px);
+    }
+}
+
+.glitch-title {
+    animation: glitch-title 3s infinite;
+    animation-delay: 0.5s;
+}
+
+/* Start Screen Fade In */
+@keyframes fadeInScreen {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+#start-screen {
+    animation: fadeInScreen 0.8s ease-in;
+}
+
+/* Subtitle Fade Animation */
+@keyframes subtitleFade {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; text-shadow: 0 0 15px #22d3ee; }
+}
+
+.subtitle-fade {
+    animation: subtitleFade 2s infinite;
+}
+
+/* Start Button Animations */
+.start-btn {
+    position: relative;
+    overflow: hidden;
+    min-width: 280px;
+}
+
+.start-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.start-btn:hover::before {
+    left: 100%;
+}
+
+@keyframes buttonPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+.button-group .start-btn:nth-child(1) {
+    animation: buttonPulse 2s infinite;
+}
+
+.button-group .start-btn:nth-child(2) {
+    animation: buttonPulse 2s infinite 0.3s;
+}
+
+.button-group .start-btn:nth-child(3) {
+    animation: buttonPulse 2s infinite 0.6s;
+}
+
+/* Instructions Panel Styles */
+.instruction-panel {
+    box-shadow: 0 0 30px rgba(34, 211, 238, 0.3), 0 0 60px rgba(34, 211, 238, 0.1);
+}
+
+.instruction-panel h2 {
+    position: relative;
+}
+
+.instruction-panel h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #facc15, transparent);
+}
+
+@keyframes fadeInPanel {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.instruction-panel {
+    animation: fadeInPanel 0.3s ease-out;
+}
+
+/* Custom scrollbar for instruction panel */
+.instruction-panel::-webkit-scrollbar {
+    width: 8px;
+}
+
+.instruction-panel::-webkit-scrollbar-track {
+    background: #1f2937;
+}
+
+.instruction-panel::-webkit-scrollbar-thumb {
+    background: #22d3ee;
+}
+
+/* Neon background accent for start screen */
+#start-screen::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(250, 204, 21, 0.05) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+/* Glow Effects */
+.glow-yellow:hover {
+    box-shadow: 0 0 10px #facc15, 0 0 20px #facc15;
+}
+
+.glow-pink:hover {
+    box-shadow: 0 0 10px #ec4899, 0 0 20px #ec4899;
+}
+
+.glow-cyan:hover {
+    box-shadow: 0 0 10px #22d3ee, 0 0 20px #22d3ee;
+}
+
+.terminal-glow {
+    box-shadow: 0 0 5px #22d3ee, inset 0 0 5px #22d3ee;
+}
+
+/* Scanline Effect */
+.scanline {
+    background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0,0,0,0.1) 50%,
+        rgba(0,0,0,0.1)
+    );
+    background-size: 100% 4px;
+}
+
+/* HP & RAM Bars */
+.hp-bar {
+    background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
+    transition: width 0.5s ease-out;
+}
+
+.ram-bar {
+    background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
+    transition: width 0.5s ease-out;
+}
+
+/* Scrollbar */
+.story-log::-webkit-scrollbar {
+    width: 8px;
+}
+
+.story-log::-webkit-scrollbar-track {
+    background: #1f2937;
+}
+
+.story-log::-webkit-scrollbar-thumb {
+    background: #facc15;
+}
+
+/* Glitch Animation */
+@keyframes glitch {
+    0% { transform: translate(0) }
+    20% { transform: translate(-2px, 2px) }
+    40% { transform: translate(-2px, -2px) }
+    60% { transform: translate(2px, 2px) }
+    80% { transform: translate(2px, -2px) }
+    100% { transform: translate(0) }
+}
+
+.glitch:hover {
+    animation: glitch 0.3s infinite;
+}
+
+/* Story Log */
+#story-log {
+    min-height: 400px;
+}
+
+#story-log p {
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
+/* Inventory Grid */
+#inventory {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+/* Choices Container */
+#choices {
+    margin-top: 0.75rem;
+}
+
+.choice-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Debug Console Toggle */
+#debug-toggle {
+    font-size: 1.25rem;
+    border-radius: 4px;
+}
+
+/* Debug Panel */
+#debug-panel {
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(34, 211, 238, 0.3);
+}
+
+#debug-panel select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2322d3ee' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    padding-right: 2rem;
+}
+
+/* ==========================================
+   Ending System Animations
+   ========================================== */
+
+/* Background Fade In */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 1.5s ease-in forwards;
+}
+
+/* Slide Up for Title */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-up {
+    animation: slideUp 0.8s ease-out forwards;
+}
+
+/* Line Fade In for text content */
+@keyframes lineFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.line-fade-in {
+    opacity: 0;
+    animation: lineFadeIn 0.6s ease-out forwards;
+}
+
+/* Good Ending - Glow Effect */
+@keyframes glow {
+    0%, 100% {
+        text-shadow: 0 0 10px #22c55e, 0 0 20px #22c55e, 0 0 30px #16a34a;
+    }
+    50% {
+        text-shadow: 0 0 20px #22c55e, 0 0 40px #22c55e, 0 0 60px #16a34a;
+    }
+}
+
+.glow-green {
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* Bad Ending - Glitch Effect */
+@keyframes glitchText {
+    0% { transform: translate(0); }
+    10% { transform: translate(-3px, 3px); }
+    20% { transform: translate(-3px, -3px); }
+    30% { transform: translate(3px, 3px); }
+    40% { transform: translate(3px, -3px); }
+    50% { transform: translate(0); }
+    60% { transform: translate(-2px, 2px); }
+    70% { transform: translate(2px, -2px); }
+    80% { transform: translate(-1px, 1px); }
+    90% { transform: translate(1px, -1px); }
+    100% { transform: translate(0); }
+}
+
+@keyframes glitchShadow {
+    0%, 100% {
+        text-shadow: 2px 0 #ef4444, -2px 0 #7f1d1d;
+    }
+    25% {
+        text-shadow: -2px 0 #ef4444, 2px 0 #7f1d1d;
+    }
+    50% {
+        text-shadow: 3px 0 #b91c1c, -3px 0 #ef4444;
+    }
+    75% {
+        text-shadow: -3px 0 #b91c1c, 3px 0 #ef4444;
+    }
+}
+
+.glitch-red {
+    animation: glitchText 0.3s infinite, glitchShadow 2s ease-in-out infinite;
+}
+
+/* Ending Overlay Base */
+.ending-overlay {
+    animation: fadeIn 1.5s ease-in forwards;
+}
+
+.ending-title {
+    opacity: 0;
+}
+
+.ending-text {
+    opacity: 0;
+}
+
+.ending-restart-btn {
+    opacity: 0;
+}
+
+/* Scanline overlay for bad ending */
+.ending-bad .scanline-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(239,68,68,0.03) 50%,
+        rgba(239,68,68,0.03)
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    animation: fadeIn 2s ease-in;
+}
+
+/* Scanline overlay for good ending */
+.ending-good .scanline-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(34,197,94,0.02) 50%,
+        rgba(34,197,94,0.02)
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    animation: fadeIn 2s ease-in;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .col-span-8,
+    .col-span-4 {
+        grid-column: span 12 / span 12;
+    }
+}
+
+/* Button States */
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Terminal Input Focus */
+#terminal-input:focus {
+    box-shadow: 0 0 10px #22d3ee, inset 0 0 5px #22d3ee;
+}
+
+/* Roll Button Active */
+#roll-btn:active {
+    transform: scale(0.95);
+}
+
+/* Dice Result */
+#dice-result {
+    transition: all 0.3s ease;
+}
+
+/* NPC Dialogue Panel */
+.npc-dialogue-panel {
+    box-shadow: 0 0 30px rgba(34, 211, 238, 0.3), 0 0 60px rgba(34, 211, 238, 0.1);
+    border-radius: 4px;
+}
+
+.npc-select-btn {
+    transition: all 0.3s ease;
+}
+
+.npc-select-btn.active {
+    box-shadow: 0 0 10px #22d3ee, 0 0 20px rgba(34, 211, 238, 0.3);
+}
+
+/* Chat History */
+#chat-history {
+    scrollbar-width: thin;
+    scrollbar-color: #facc15 #1f2937;
+}
+
+#chat-history::-webkit-scrollbar {
+    width: 8px;
+}
+
+#chat-history::-webkit-scrollbar-track {
+    background: #1f2937;
+}
+
+#chat-history::-webkit-scrollbar-thumb {
+    background: #facc15;
+    border-radius: 4px;
+}
+
+/* Chat Message Styles */
+.chat-message {
+    animation: lineFadeIn 0.3s ease-out forwards;
+}
+
+.chat-message.player-message {
+    background: rgba(250, 204, 21, 0.1);
+    border-left: 3px solid #facc15;
+}
+
+.chat-message.npc-message {
+    background: rgba(34, 211, 238, 0.1);
+    border-left: 3px solid #22d3ee;
+}
+
+.chat-message.system-message {
+    background: rgba(107, 114, 128, 0.1);
+    border-left: 3px solid #6b7280;
+}
+
+/* API Config Modal */
+.api-config-modal {
+    box-shadow: 0 0 30px rgba(250, 204, 21, 0.3), 0 0 60px rgba(250, 204, 21, 0.1);
+    border-radius: 4px;
+    animation: fadeInPanel 0.3s ease-out;
+}
+
+/* Story Node Selector */
+#story-node-selector {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2322d3ee' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    padding-right: 2rem;
+}
+
+/* API Status Indicator */
+#api-status.connected {
+    color: #22c55e;
+}
+
+#api-status.error {
+    color: #ef4444;
+}
+
+#api-status.testing {
+    color: #facc15;
+}
+
+/* Typing Indicator */
+.typing-indicator {
+    display: inline-flex;
+    gap: 4px;
+    padding: 8px 12px;
+}
+
+.typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background: #22d3ee;
+    border-radius: 50%;
+    animation: typing 1.4s infinite;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+    0%, 60%, 100% {
+        transform: translateY(0);
+        opacity: 0.3;
+    }
+    30% {
+        transform: translateY(-10px);
+        opacity: 1;
+    }
+}

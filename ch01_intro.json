@@ -1,0 +1,301 @@
+{
+  "chapter_id": "ch01",
+  "chapter_name": "偷天换日",
+  "nodes": [
+    {
+      "node_id": "ch01_01",
+      "type": "dialogue",
+      "speaker": "system",
+      "text": "神经链路连接已建立...当前坐标：荒坂塔底层子网",
+      "speed": 30,
+      "delay": 300,
+      "next_node": "ch01_02"
+    },
+    {
+      "node_id": "ch01_02",
+      "type": "dialogue",
+      "speaker": "narrator",
+      "text": "霓虹灯的光芒穿透冷却液的雾气。你正躲在服务器机房外，前方是一扇重型防爆门，里面存放着目标：Relic分离芯片。",
+      "speed": 25,
+      "delay": 500,
+      "next_node": "ch01_03"
+    },
+    {
+      "node_id": "ch01_03",
+      "type": "dialogue",
+      "speaker": "t_bug",
+      "text": "V，我已经压制了外围安保，但这扇防爆门的 ICE 比预想的厚。你得自己想办法突破进去。",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch01_04"
+    },
+    {
+      "node_id": "ch01_04",
+      "type": "dialogue",
+      "speaker": "system",
+      "text": "主线任务已更新: \"偷天换日 - 突破机房门禁\"",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch01_choice_01"
+    },
+    {
+      "node_id": "ch01_choice_01",
+      "type": "choice",
+      "speaker": "system",
+      "text": "请选择你的行动方式：",
+      "choices": [
+        {
+          "text": "强行破解门禁（智力检定 DC15）",
+          "next_node": "ch01_check_breach"
+        },
+        {
+          "text": "物理破坏供电（体能检定 DC14）",
+          "next_node": "ch01_check_power"
+        },
+        {
+          "text": "骇入维护节点（智力检定 DC12）",
+          "next_node": "ch01_check_subnet"
+        }
+      ]
+    },
+    {
+      "node_id": "ch01_check_breach",
+      "type": "check",
+      "speaker": "system",
+      "text": "你决定直接破解门禁系统。T-Bug会为你提供远程支援。",
+      "check": {
+        "name": "强行破解门禁",
+        "attribute": "intellect",
+        "dc": 15,
+        "on_success": "ICE协议已突破！门禁解除。",
+        "on_failure": "ICE协议太强，你的破解被反弹了！",
+        "success_next": "ch01_05",
+        "failure_next": "ch01_05"
+      }
+    },
+    {
+      "node_id": "ch01_check_power",
+      "type": "check",
+      "speaker": "system",
+      "text": "你准备切断门禁的供电线路。这会引起安保注意。",
+      "check": {
+        "name": "物理破坏供电",
+        "attribute": "physique",
+        "dc": 14,
+        "on_success": "供电线路被切断！门禁失效。",
+        "on_failure": "线路太粗，你没能完全切断！",
+        "success_next": "ch01_05",
+        "failure_next": "ch01_05"
+      }
+    },
+    {
+      "node_id": "ch01_check_subnet",
+      "type": "check",
+      "speaker": "system",
+      "text": "你发现了一个维护节点，从这里接入可以避开主防火墙。",
+      "check": {
+        "name": "骇入维护节点",
+        "attribute": "intellect",
+        "dc": 12,
+        "on_success": "成功通过维护节点绕过安保系统！",
+        "on_failure": "维护节点也有防御，你被弹出了！",
+        "success_next": "ch01_05",
+        "failure_next": "ch01_05"
+      }
+    },
+    {
+      "node_id": "ch01_05",
+      "type": "dialogue",
+      "speaker": "system",
+      "text": "门禁已解除。你潜入核心机房。",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch01_06"
+    },
+    {
+      "node_id": "ch01_06",
+      "type": "dialogue",
+      "speaker": "narrator",
+      "text": "机房内冷气嗡嗡作响，蓝色的LED灯照亮了排列整齐的服务器。目标就在前方——Relic芯片存放在中央神龛的保温槽里。",
+      "speed": 25,
+      "delay": 500,
+      "next_node": "ch01_07"
+    },
+    {
+      "node_id": "ch01_07",
+      "type": "dialogue",
+      "speaker": "jackson_welles",
+      "text": "V！外面情况不妙，荒坂的安保在集结！你得赶紧拿到那玩意儿撤退！",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch01_08"
+    },
+    {
+      "node_id": "ch01_08",
+      "type": "dialogue",
+      "speaker": "t_bug",
+      "text": "神龛有独立的安保系统，我无法远程破解。你得自己处理。小心点，那玩意儿有自毁协议。",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch01_choice_02"
+    },
+    {
+      "node_id": "ch01_choice_02",
+      "type": "choice",
+      "speaker": "system",
+      "text": "神龛就在面前，你准备：",
+      "choices": [
+        {
+          "text": "尝试破解神龛锁（智力检定 DC16）",
+          "next_node": "ch01_check_shrine"
+        },
+        {
+          "text": "直接暴力拔出芯片（体能检定 DC18）",
+          "next_node": "ch01_check_grab"
+        },
+        {
+          "text": "呼叫T-Bug紧急支援（魅力检定 DC14）",
+          "next_node": "ch01_check_tbug"
+        }
+      ]
+    },
+    {
+      "node_id": "ch01_check_shrine",
+      "type": "check",
+      "speaker": "system",
+      "text": "你蹲下来开始分析神龛的锁止机构。需要极高的精密度。",
+      "check": {
+        "name": "破解神龛锁",
+        "attribute": "intellect",
+        "dc": 16,
+        "on_success": "神龛锁解除！Relic芯片安全取出！",
+        "on_failure": "自毁协议被触发！你被电流击中！",
+        "success_next": "ch01_09",
+        "failure_next": "ch01_09"
+      }
+    },
+    {
+      "node_id": "ch01_check_grab",
+      "type": "check",
+      "speaker": "system",
+      "text": "你决定不管那么多，直接上手！",
+      "check": {
+        "name": "暴力拔出芯片",
+        "attribute": "physique",
+        "dc": 18,
+        "on_success": "芯片被你硬拽了出来！虽然有点损伤但还能用。",
+        "on_failure": "自毁协议启动！芯片外壳高温警告！",
+        "success_next": "ch01_09",
+        "failure_next": "ch01_09"
+      }
+    },
+    {
+      "node_id": "ch01_check_tbug",
+      "type": "check",
+      "speaker": "system",
+      "text": "T-Bug，我需要你帮我搞定这个神龛！",
+      "check": {
+        "name": "请求T-Bug支援",
+        "attribute": "charisma",
+        "dc": 14,
+        "on_success": "T-Bug传来一段紧急破解协议，神龛锁解除了！",
+        "on_failure": "T-Bug的连接不稳定，无法完成破解！",
+        "success_next": "ch01_09",
+        "failure_next": "ch01_09"
+      }
+    },
+    {
+      "node_id": "ch01_09",
+      "type": "choice",
+      "speaker": "system",
+      "text": "芯片已入手，下一步：",
+      "choices": [
+        {
+          "text": "立即撤离",
+          "next_node": "ch01_check_escape",
+          "effect_id": "add_shard"
+        },
+        {
+          "text": "搜索更多数据后撤离",
+          "next_node": "ch01_check_search",
+          "effect_id": "add_keycard"
+        }
+      ]
+    },
+    {
+      "node_id": "ch01_check_escape",
+      "type": "check",
+      "speaker": "system",
+      "text": "你准备趁安保还没完全包围，快速撤离。",
+      "check": {
+        "name": "快速撤离",
+        "attribute": "charisma",
+        "dc": 14,
+        "on_success": "你成功穿过封锁线！杰克的车就在路口等你。",
+        "on_failure": "你被安保巡逻队发现！只能硬闯了！",
+        "success_next": "ch01_10",
+        "failure_next": "ch01_10"
+      }
+    },
+    {
+      "node_id": "ch01_check_search",
+      "type": "check",
+      "speaker": "system",
+      "text": "你决定冒着风险多搜刮一些数据。",
+      "check": {
+        "name": "搜索额外数据",
+        "attribute": "intellect",
+        "dc": 15,
+        "on_success": "你找到了一份荒坂内部通讯录。时间差不多了，该走了。",
+        "on_failure": "你触发了警报，安保正在快速靠近！",
+        "success_next": "ch01_10",
+        "failure_next": "ch01_10"
+      }
+    },
+    {
+      "node_id": "ch01_10",
+      "type": "dialogue",
+      "speaker": "narrator",
+      "text": "警报声震耳欲聋，红色的警示灯闪烁不停。荒坂塔进入全面封锁。但你拿到了货。",
+      "speed": 25,
+      "delay": 500,
+      "next_node": "ch01_11"
+    },
+    {
+      "node_id": "ch01_11",
+      "type": "dialogue",
+      "speaker": "jackson_welles",
+      "text": "V！我看到你了！快往东侧出口跑！我开车接你！",
+      "speed": 25,
+      "delay": 300,
+      "next_node": "ch01_12"
+    },
+    {
+      "node_id": "ch01_12",
+      "type": "dialogue",
+      "speaker": "system",
+      "text": "第一章结束。你成功从荒坂塔偷出了Relic芯片。但真正的危险才刚刚开始...",
+      "speed": 25,
+      "delay": 500,
+      "next_node": "ch01_13"
+    },
+    {
+      "node_id": "ch01_13",
+      "type": "dialogue",
+      "speaker": "system",
+      "text": "--- 第一章：偷天换日 完成 ---",
+      "speed": 30,
+      "delay": 1000,
+      "next_node": "ch01_end"
+    },
+    {
+      "node_id": "ch01_end",
+      "type": "ending",
+      "speaker": "system",
+      "text": "第一章完成。准备进入下一章剧情...",
+      "speed": 30,
+      "delay": 500,
+      "next_chapter": "ch02_middle.json"
+    }
+  ]
+}
